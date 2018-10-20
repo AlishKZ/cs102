@@ -43,4 +43,37 @@ def bezout_recursive(a, b):
     if not b:
         return (1, 0, a)
     y, x, g = bezout_recursive(b, a%b)
-return (x, y - (a // b) * x, g)
+    return (x, y - (a // b) * x, g)
+
+
+def multiplicative_inverse(e, phi):
+    """
+    Euclid's extended algorithm for finding the multiplicative
+    inverse of two numbers.
+    >>> multiplicative_inverse(7, 40)
+    23
+    """
+    (x, y, g) = bezout_recursive(phi, e)
+    d = y % phi            
+    return d;
+
+
+def generate_keypair(p, q):
+    if not (is_prime(p) and is_prime(q)):
+        raise ValueError('Both numbers must be prime.')
+    elif p == q:
+        raise ValueError('p and q cannot be equal')
+    n = p*q
+    phi = (p-1)*(q-1)
+    # Choose an integer e such that e and phi(n) are coprime
+    e = random.randrange(1, phi)
+    # Use Euclid's Algorithm to verify that e and phi(n) are comprime
+    g = gcd(e, phi)
+    while g != 1:
+        e = random.randrange(1, phi)
+        g = gcd(e, phi)
+    # Use Extended Euclid's Algorithm to generate the private key
+    d = multiplicative_inverse(e, phi)
+    # Return public and private keypair
+    # Public key is (e, n) and private key is (d, n)
+return ((e, n), (d, n))
