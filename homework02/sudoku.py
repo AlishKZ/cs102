@@ -27,7 +27,7 @@ def group(values :list, n :int) -> list:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-return [values[i:i+n] for i in range(0, len(values), n)]
+    return [values[i:i+n] for i in range(0, len(values), n)]
 
 
 def get_row(values :list, pos :list) -> list:
@@ -39,7 +39,7 @@ def get_row(values :list, pos :list) -> list:
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-return values[pos[0]]
+    return values[pos[0]]
 
 
 def get_col(values :list, pos :list) -> list:
@@ -51,7 +51,7 @@ def get_col(values :list, pos :list) -> list:
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-return [values[i][pos[1]] for i in range(0, len(values))]
+    return [values[i][pos[1]] for i in range(0, len(values))]
 
 
 def get_block(values :list, pos :list) -> list:
@@ -69,7 +69,7 @@ def get_block(values :list, pos :list) -> list:
     for i in range((row//3)*3, (row//3)*3 + 3):
         for j in range((col//3)*3, (col//3)*3 + 3):
             elements.append(values[i][j])
-return elements
+    return elements
 
 
 def find_empty_positions(grid :list) -> Optional[list]:
@@ -86,4 +86,20 @@ def find_empty_positions(grid :list) -> Optional[list]:
             if grid[i][j] == '.':
                 return [i, j]
     else:
-return None
+	return None
+
+
+def find_possible_values(grid :list, pos :list) -> set:
+    """ Вернуть множество возможных значения для указанной позиции
+    >>> grid = read_sudoku('puzzle1.txt')
+    >>> values = find_possible_values(grid, (0,2))
+    >>> values == {'1', '2', '4'}
+    True
+    >>> values = find_possible_values(grid, (4,7))
+    >>> values == {'2', '5', '9'}
+    True
+    """
+    values = set(get_block(grid, pos))
+    values.update(get_row(grid, pos))
+    values.update(get_col(grid, pos))
+    return set('123456789') - values
