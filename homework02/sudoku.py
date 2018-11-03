@@ -127,3 +127,26 @@ def solve(grid :list):
             return solution
     grid[possition[0]][possition[1]] = '.'
     return None
+
+
+def check_solution(solution :list) -> bool:
+    """ Если решение solution верно, то вернуть True, в противном случае False """
+    # TODO: Add doctests with bad puzzles
+    base = set('123456789')
+    for i in range(len(solution)):
+        values = set(get_row(solution, [i, 0]))
+        if values != base :
+            return False
+
+    for j in range(len(solution)):
+        values = set(get_col(solution, [0, j]))
+        if values != base:
+            return False
+
+    for i in range(0, 7, 3):
+        for j in range(0, 7, 3):
+            values = set(get_block(solution, [i, j]))
+            if values != base:
+                return False
+
+    return True
