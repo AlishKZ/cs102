@@ -52,3 +52,24 @@ def get_col(values :list, pos :list) -> list:
     ['3', '6', '9']
     """
 return [values[i][pos[1]] for i in range(0, len(values))]
+
+
+def get_block(values :list, pos :list) -> list:
+    """ Возвращает все значения из квадрата, в который попадает позиция pos
+    >>> grid = read_sudoku('puzzle1.txt')
+    >>> get_block(grid, (0, 1))
+    ['5', '3', '.', '6', '.', '.', '.', '9', '8']
+    >>> get_block(grid, (4, 7))
+    ['.', '.', '3', '.', '.', '1', '.', '.', '6']
+    >>> get_block(grid, (8, 8))
+    ['2', '8', '.', '.', '.', '5', '.', '7', '9']
+    """
+    elements = []
+    row, col = pos
+    for i in range((row//3)*3, (row//3)*3 + 3):
+        for j in range((col//3)*3, (col//3)*3 + 3):
+            elements.append(values[i][j])
+return elements
+
+
+
