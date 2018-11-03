@@ -189,3 +189,11 @@ def generate_sudoku(N :int) -> list:
             grid[i][j] = '.'
             F = F - 1
     return grid
+
+
+if __name__ == '__main__':
+    for fname in ['puzzle1.txt', 'puzzle2.txt', 'puzzle3.txt']:
+        grid = read_sudoku(fname)
+        display(grid)
+        solution = solve(grid)
+	display(solution)
