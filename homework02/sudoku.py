@@ -72,4 +72,18 @@ def get_block(values :list, pos :list) -> list:
 return elements
 
 
-
+def find_empty_positions(grid :list) -> Optional[list]:
+    """ Найти первую свободную позицию в пазле
+    >>> find_empty_positions([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']])
+    (0, 2)
+    >>> find_empty_positions([['1', '2', '3'], ['4', '.', '6'], ['7', '8', '9']])
+    (1, 1)
+    >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
+    (2, 0)
+    """
+    for i in range(0, len(grid)):
+        for j in range(0, len(grid)):
+            if grid[i][j] == '.':
+                return [i, j]
+    else:
+return None
