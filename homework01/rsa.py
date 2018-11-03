@@ -1,7 +1,7 @@
 import random
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     """
     Tests to see if a number is prime.
     >>> is_prime(2)
@@ -16,18 +16,18 @@ def is_prime(n):
     while determinator < n:
         if n%determinator == 0:
             return False;
-        determinator+=1;
+        determinator += 1;
     return True;
 
 
-def gcd(a, b):
+def gcd(a: int, b: int) -> int:
     """
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
     1
     """
-    while a!=0 and b!=0:
+    while a != 0 and b != 0:
         if a > b:
             a = a % b
         else:
@@ -35,18 +35,18 @@ def gcd(a, b):
 
     return(a + b)
 
-def bezout_recursive(a, b):
+def bezout_recursive(a: int, b: int) -> tuple:
     '''A recursive implementation of extended Euclidean algorithm.
     Returns integer x, y and gcd(a, b) for Bezout equation:
         ax + by = gcd(a, b).
     '''
     if not b:
         return (1, 0, a)
-    y, x, g = bezout_recursive(b, a%b)
+    y, x, g = bezout_recursive(b, a % b)
     return (x, y - (a // b) * x, g)
 
 
-def multiplicative_inverse(e, phi):
+def multiplicative_inverse(e: int, phi :int) -> int:
     """
     Euclid's extended algorithm for finding the multiplicative
     inverse of two numbers.
@@ -58,12 +58,12 @@ def multiplicative_inverse(e, phi):
     return d;
 
 
-def generate_keypair(p, q):
+def generate_keypair(p: int, q: int)-> tuple:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError('Both numbers must be prime.')
     elif p == q:
         raise ValueError('p and q cannot be equal')
-    n = p*q
+    n = p * q
     phi = (p-1)*(q-1)
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
@@ -79,7 +79,7 @@ def generate_keypair(p, q):
     return ((e, n), (d, n))
 
 
-def encrypt(pk, plaintext):
+def encrypt(pk: tuple, plaintext: str) -> list:
     # Unpack the key into it's components
     key, n = pk
     # Convert each letter in the plaintext to numbers based on
@@ -89,7 +89,7 @@ def encrypt(pk, plaintext):
     return cipher
 
 
-def decrypt(pk, ciphertext):
+def decrypt(pk: tuple, ciphertext: str) -> str:
     # Unpack the key into its components
     key, n = pk
     # Generate the plaintext based on the ciphertext and key using a^b mod m
