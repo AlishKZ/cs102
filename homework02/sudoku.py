@@ -84,10 +84,9 @@ def find_empty_positions(grid :list) -> Optional[list]:
     for i in range(0, len(grid)):
         for j in range(0, len(grid)):
             if grid[i][j] == '.':
-                return [i, j]
-    else:
-	return None
-
+                return (i, j)
+    else:return None
+ 
 
 def find_possible_values(grid :list, pos :list) -> set:
     """ Вернуть множество возможных значения для указанной позиции
@@ -135,13 +134,11 @@ def check_solution(solution :list) -> bool:
     base = set('123456789')
     for i in range(len(solution)):
         values = set(get_row(solution, [i, 0]))
-        if values != base :
-            return False
+        if values != base :return False
 
     for j in range(len(solution)):
         values = set(get_col(solution, [0, j]))
-        if values != base:
-            return False
+        if values != base:return False
 
     for i in range(0, 7, 3):
         for j in range(0, 7, 3):
@@ -196,4 +193,4 @@ if __name__ == '__main__':
         grid = read_sudoku(fname)
         display(grid)
         solution = solve(grid)
-	display(solution)
+        display(solution)
