@@ -37,20 +37,18 @@ class GameOfLife:
         clock = pygame.time.Clock()
         pygame.display.set_caption('Game of Life')
         self.screen.fill(pygame.Color('white'))
-
-        # Создание списка клеток
-        # PUT YOUR CODE HERE
+        self.cell_list(randomize=True)
 
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
+
+	    self.draw_cell_list(self.clist)
             self.draw_grid()
 
-            # Отрисовка списка клеток
-            # Выполнение одного шага игры (обновление состояния ячеек)
-            # PUT YOUR CODE HERE
+	    self.clist = self.update_cell_list(self.clist)
 
             pygame.display.flip()
             clock.tick(self.speed)
